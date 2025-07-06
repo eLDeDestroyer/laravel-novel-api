@@ -18,5 +18,8 @@ Route::middleware(["auth"])->group(function(){
 
 
     Route::get("/auth/categories", [BookController::class, "getCategories"]);
-
+    Route::get("/auth/book/search", [BookController::class, "getBookByTitle"]);
+    Route::get("/auth/book/new", [BookController::class, "getRecentBook"]);
+    Route::get("/auth/book/like", [BookController::class, "getBookMostLike"]);
+    Route::get("/auth/book/{category_id}", [BookController::class, "getBookByCategory"]);
 });
