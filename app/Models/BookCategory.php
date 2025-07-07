@@ -17,4 +17,6 @@ class BookCategory extends Model
         "category_id" => "integer",
         "book_id" => "integer"
     ];
+
+    public $timestamps = false;
 }

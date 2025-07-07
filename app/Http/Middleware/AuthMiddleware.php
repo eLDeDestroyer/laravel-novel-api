@@ -16,6 +16,10 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if ($request->getMethod() === 'OPTIONS') {
+            return response()->json([], 204);
+        }
+
         if(!Auth::check()){
            return response()->json([
                 'status' => 'unauthorized',

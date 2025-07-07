@@ -20,4 +20,6 @@ class Book extends Model
         "image_path" => "string",
         "user_id" => "integer"
     ];
+
+    public $timestamps = false;
 }

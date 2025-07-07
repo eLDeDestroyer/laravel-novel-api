@@ -17,4 +17,6 @@ class Like extends Model
         "user_id" => "integer",
         "book_id" => "integer"
     ];
+
+    public $timestamps = false;
 }

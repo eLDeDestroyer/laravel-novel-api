@@ -22,4 +22,12 @@ Route::middleware(["auth"])->group(function(){
     Route::get("/auth/book/new", [BookController::class, "getRecentBook"]);
     Route::get("/auth/book/like", [BookController::class, "getBookMostLike"]);
     Route::get("/auth/book/{category_id}", [BookController::class, "getBookByCategory"]);
+    Route::get("/auth/book/detail/{book_id}", [BookController::class, "getBookDetail"]);
+
+    Route::post("/auth/book/add", [BookController::class, "addBook"]);
+    Route::patch("/auth/book/update/{book_id}", [BookController::class, "updateBook"]);
+    Route::delete("/auth/book/delete/{book_id}", [BookController::class, "deleteBook"]);
+    Route::post("/auth/book/categories/add", [BookController::class, "addBookcategory"]);
+    Route::post("/auth/book/categories/update", [BookController::class, "updateBookcategory"]);
+
 });

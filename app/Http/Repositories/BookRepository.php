@@ -2,7 +2,12 @@
 
 namespace App\Http\Repositories;
 
+use App\Models\Book;
+use App\Models\BookCategory;
 use App\Models\Category;
+use App\Models\History;
+use App\Models\Like;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
 class BookRepository
@@ -58,7 +63,6 @@ class BookRepository
         return $data;
     }
 
-
     public function getBookBycategoryId(int $category_id){
         $data = DB::table("books")
             ->leftJoin("pages","pages.book_id", "=", "books.id")
@@ -68,5 +72,66 @@ class BookRepository
             ->get();
 
         return $data;
+    }
+
+    public function getBookDetail(int $book_id){
+        $data =  DB::table("books")
+            ->leftJoin("users", "users.id", "=", "books.user_id")
+            ->leftJoin("pages", "pages.book_id", "=", "books.id")
+            ->select("users.name", "books.title", "books.description", "books.image_path", "pages.id", "pages.page", "pages.text")
+            ->where("books.id", $book_id)
+            ->get();
+        
+        return $data;
+    }
+
+    public function getActionBookDetail(int $book_id){
+        $seen = History::where("book_id", $book_id)->count();
+        $like = Like::where("book_id", $book_id)->count();
+        $page = Page::where("book_id", $book_id)->count();
+
+        $data = [
+            "seen" => $seen,
+            "like" => $like,
+            "page" => $page
+        ];
+
+        return $data;
+    }
+
+    public function addBook(array $book){
+        $bookId = Book::query()->insertGetId([
+            "title" => $book["title"],
+            "description" => $book["description"],
+            "image_path" => $book["image_path"],
+            "user_id" => $book["user_id"]
+        ]);
+
+        return $bookId;
+    }
+
+    public function updateBook(array $book,int $book_id){
+        $bookId = Book::query()->where("id", $book_id)->update([
+            "title" => $book["title"],
+            "description" => $book["description"],
+            "image_path" => $book["image_path"],
+            "user_id" => $book["user_id"]
+        ]);
+    }
+
+    public function addBookCategory(int $book_id ,int $category_id){
+        BookCategory::query()->insert([
+            "book_id" => $book_id,
+            "category_id" => $category_id 
+        ]);
+    }
+
+    public function deleteBookCategory(int $book_id){
+        BookCategory::query()->where("book_id", $book_id)->delete();
+    }
+
+
+    public function deleteBook(int $book_id){
+        Book::query()->where("id", $book_id)->delete();
     }
 }
