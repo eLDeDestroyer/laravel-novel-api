@@ -28,14 +28,16 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 [View on DrawSQL](https://drawsql.app/teams/devmare/diagrams/novel)
 
 🌱 **SQL Seeder File**  
-[View Seeder on GitHub](https://github.com/eLDeDestroyer/golang-novel-api/blob/main/file/e_novel.sql)
+[View Seeder on GitHub](https://github.com/eLDeDestroyer/laravel-novel-api/blob/page/file/e_novel.sql)
 
 ---
 
-# 🔐 Auth
+# Auth
 
-## Register || POST  
+## Register || POST
 `{host}/api/signup`
+
+### Request
 
 ```json
 {
@@ -45,8 +47,23 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
-## Login || POST  
+### Response
+
+```json
+{
+  "data": {
+    "username": "sacho",
+    "token": "<JWT_TOKEN>"
+  },
+  "message": "Success Register",
+  "success": true
+}
+```
+
+## Login || POST
 `{host}/api/signin`
+
+### Request
 
 ```json
 {
@@ -68,55 +85,153 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
+# User
 
-# 👤 User
-
-## Get Me || GET  
+## Get Me  || Get
 `{host}/api/auth/user`
 
-## Get User By Username || GET  
+### Response
+
+```json
+{
+  "data": {
+    "username": "sacho",
+    "name": "jadon",
+    "books": [...]
+  },
+  "message": "Success Get User",
+  "success": true
+}
+```
+
+## Get User By Username || Get
 `{host}/api/auth/user/{username}`
 
-## Get Book by User Action || GET  
+### Response
+
+```json
+{
+  "data": {
+    "username": "sacho",
+    "name": "jadon",
+    "books": [...]
+  },
+  "message": "Success Get User {username}",
+  "success": true
+}
+```
+
+## Get book by action user || GET 
 `{host}/api/auth/user/action/{action}`
 
-## Add Action to Book || POST  
+### Response
+
+```json
+{
+  "data": {
+    "books": [...]
+  },
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Add action to book || POST 
 `{host}/api/auth/user/action/{action}/{book_id}`
 
----
+### Response
 
-# 📚 Book
+```json
+{
+  "data": null,
+  "message": "Success action to book",
+  "success": true
+}
+```
 
-## Get Categories || GET  
+# Book
+
+## Get Categories || GET 
 `{host}/api/auth/categories`
 
-## Get Book by Title || GET  
+### Response
+
+```json
+{
+  "data": [...],
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Get Book By Title || GET 
 `{host}/api/auth/book/search?title=`
 
-## Get Recent Books || GET  
+### Response
+
+```json
+{
+  "data": [...],
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Get Recent Book || GET 
 `{host}/api/auth/book/new`
 
-## Get Most Liked Books || GET  
+### Response
+
+```json
+{
+  "data": [...],
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Get Book Most Like || GET 
 `{host}/api/auth/book/like`
 
-## Get Books by Category || GET  
+### Response
+
+```json
+{
+  "data": [...],
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Get Book By Category || GET 
 `{host}/api/auth/book/{categoryId}`
 
-## Get Book Detail || GET  
+### Response
+
+```json
+{
+  "data": [...],
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+## Get Book Detail || GET 
 `{host}/api/auth/book/detail/{id}`
+
+### Response
 
 ```json
 {
   "data": {
     "title": "hayam waruk",
     "description": "alkisah...",
-    "image_path": "/uploads/hayam.jpg",
-    "name": "Karatos bin Zeus",
+    "image_path": "/public/image/hayam.jpg",
+    "name": "Karatos bin zeus",
     "action": {
-      "seen": 12,
-      "like": 5,
-      "page": 10
+        "seen": 12,
+        "like": 5,
+        "page": 10
     },
     "pages": [...]
   },
@@ -125,10 +240,10 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
-
-## Add Book || POST  
+## Add Book || POST
 `{host}/api/auth/book/add`
+
+### Request
 
 | Field       | Type   | Required |
 |-------------|--------|----------|
@@ -146,10 +261,10 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
-
-## Add Book Categories || POST  
+## Add Categories Book || POST
 `{host}/api/auth/book/categories/add`
+
+### Request
 
 ```json
 {
@@ -158,16 +273,26 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
+### Response
 
-## Update Book || PATCH  
+```json
+{
+  "data": null,
+  "message": "Success Add Category",
+  "success": true
+}
+```
+
+## Update Book || PATCH
 `{host}/api/auth/book/update/{book_id}`
+
+### Request
 
 | Field       | Type   | Required |
 |-------------|--------|----------|
 | title       | string | Yes      |
 | description | string | Yes      |
-| image       | file   | No       |
+| image       | file   | Yes      |
 | user_id     | number | Yes      |
 
 ### Response
@@ -182,10 +307,10 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
-
-## Update Book Categories || POST  
+## Update Categories Book || POST
 `{host}/api/auth/book/categories/update`
+
+### Request
 
 ```json
 {
@@ -194,17 +319,35 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
+### Response
 
-## Delete Book || DELETE  
+```json
+{
+  "data": null,
+  "message": "Success Update Category",
+  "success": true
+}
+```
+
+## Delete Book || DEL
 `{host}/api/auth/book/delete/{book_id}`
 
----
+### Response
 
-# 📄 Page
+```json
+{
+  "data": null,
+  "message": "Success Delete Book",
+  "success": true
+}
+```
 
-## Get Page of Book || GET  
+# Page
+
+## Get Page Book || Get
 `{host}/api/auth/book/page/{book_id}/{page}`
+
+### Response
 
 ```json
 {
@@ -219,10 +362,10 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
-
-## Add Page || POST  
+## Add Page Book || POST
 `{host}/api/auth/book/page/add`
+
+### Request
 
 ```json
 {
@@ -231,10 +374,20 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
----
+### Response
 
-## Update Page || PATCH  
+```json
+{
+  "data": null,
+  "message": "Success Add Page",
+  "success": true
+}
+```
+
+## Update Page Book || PATCH
 `{host}/api/auth/book/page/update`
+
+### Request
 
 ```json
 {
@@ -244,8 +397,18 @@ A RESTful API to manage books, users, and categories built using **Laravel 12**,
 }
 ```
 
+### Response
+
+```json
+{
+  "data": null,
+  "message": "Success Update Page",
+  "success": true
+}
+```
+
 ---
 
 ## 🛡️ License
 
-MIT License © 2025 — Built with ❤️ using Laravel 12 + JWT
+MIT License © 2025 — Built with ❤️ using Fiber & Golang
