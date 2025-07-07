@@ -22,6 +22,7 @@ class UserService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
@@ -45,6 +46,7 @@ class UserService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
@@ -103,6 +105,7 @@ class UserService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count() / $item->where("pages_id", $item->first()->pages_id)->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 

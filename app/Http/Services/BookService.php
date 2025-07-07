@@ -28,6 +28,7 @@ class BookService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
@@ -44,6 +45,7 @@ class BookService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
@@ -60,6 +62,7 @@ class BookService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->first()->page_count,
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
@@ -76,6 +79,7 @@ class BookService
                 "title" => $item->first()->title,
                 "description" => $item->first()->description,
                 "page_count" => $item->count(),
+                "image_path" => $item->first()->image_path
             ];
         })->values();
 
