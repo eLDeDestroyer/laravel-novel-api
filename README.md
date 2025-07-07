@@ -1,61 +1,251 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📚 E-Novel API with Laravel (JWT + Laravel 12 + MySQL)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API to manage books, users, and categories built using **Laravel 12**, **JWT**, and **MySQL**.
 
-## About Laravel
+## 🚀 Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Laravel 12** — PHP Web Framework
+- **JWT** — JSON Web Token authentication (e.g. tymon/jwt-auth)
+- **MySQL** — Relational database
+- **Intervention/Image** — For image uploads and resizing (optional)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Features
 
-## Learning Laravel
+- ✅ JWT Register & Login
+- ✅ Book CRUD (Create, Read, Update, Delete)
+- ✅ Book Pagination & Page Management
+- ✅ Category Assignment
+- ✅ Action (Like, Seen, Page Read) Tracking
+- ✅ Get Book by Title / Category / Popular / Recent
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🗂️ Project Overview
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+🧭 **ERD Visual Link**  
+[View on DrawSQL](https://drawsql.app/teams/devmare/diagrams/novel)
 
-## Laravel Sponsors
+🌱 **SQL Seeder File**  
+[View Seeder on GitHub](https://github.com/eLDeDestroyer/golang-novel-api/blob/main/file/e_novel.sql)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+# 🔐 Auth
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Register || POST  
+`{host}/api/signup`
 
-## Contributing
+```json
+{
+  "name": "test",
+  "username": "test",
+  "password": "test123"
+}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Login || POST  
+`{host}/api/signin`
 
-## Code of Conduct
+```json
+{
+  "username": "test",
+  "password": "test123"
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Response
 
-## Security Vulnerabilities
+```json
+{
+  "data": {
+    "username": "sacho",
+    "token": "<JWT_TOKEN>"
+  },
+  "message": "Success Login",
+  "success": true
+}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+# 👤 User
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Get Me || GET  
+`{host}/api/auth/user`
+
+## Get User By Username || GET  
+`{host}/api/auth/user/{username}`
+
+## Get Book by User Action || GET  
+`{host}/api/auth/user/action/{action}`
+
+## Add Action to Book || POST  
+`{host}/api/auth/user/action/{action}/{book_id}`
+
+---
+
+# 📚 Book
+
+## Get Categories || GET  
+`{host}/api/auth/categories`
+
+## Get Book by Title || GET  
+`{host}/api/auth/book/search?title=`
+
+## Get Recent Books || GET  
+`{host}/api/auth/book/new`
+
+## Get Most Liked Books || GET  
+`{host}/api/auth/book/like`
+
+## Get Books by Category || GET  
+`{host}/api/auth/book/{categoryId}`
+
+## Get Book Detail || GET  
+`{host}/api/auth/book/detail/{id}`
+
+```json
+{
+  "data": {
+    "title": "hayam waruk",
+    "description": "alkisah...",
+    "image_path": "/uploads/hayam.jpg",
+    "name": "Karatos bin Zeus",
+    "action": {
+      "seen": 12,
+      "like": 5,
+      "page": 10
+    },
+    "pages": [...]
+  },
+  "message": "Success Get Book",
+  "success": true
+}
+```
+
+---
+
+## Add Book || POST  
+`{host}/api/auth/book/add`
+
+| Field       | Type   | Required |
+|-------------|--------|----------|
+| title       | string | Yes      |
+| description | string | Yes      |
+| image       | file   | Yes      |
+
+### Response
+
+```json
+{
+  "data": 12,
+  "message": "Success Add Book {title}",
+  "success": true
+}
+```
+
+---
+
+## Add Book Categories || POST  
+`{host}/api/auth/book/categories/add`
+
+```json
+{
+  "book_id": 12,
+  "category_id": [1, 2, 3, 4]
+}
+```
+
+---
+
+## Update Book || PATCH  
+`{host}/api/auth/book/update/{book_id}`
+
+| Field       | Type   | Required |
+|-------------|--------|----------|
+| title       | string | Yes      |
+| description | string | Yes      |
+| image       | file   | No       |
+| user_id     | number | Yes      |
+
+### Response
+
+```json
+{
+  "data": {
+    "book_id": 12
+  },
+  "message": "Success Update Book",
+  "success": true
+}
+```
+
+---
+
+## Update Book Categories || POST  
+`{host}/api/auth/book/categories/update`
+
+```json
+{
+  "book_id": 12,
+  "category_id": [1, 2, 3, 4]
+}
+```
+
+---
+
+## Delete Book || DELETE  
+`{host}/api/auth/book/delete/{book_id}`
+
+---
+
+# 📄 Page
+
+## Get Page of Book || GET  
+`{host}/api/auth/book/page/{book_id}/{page}`
+
+```json
+{
+  "data": {
+    "text": "kisah ini berwala...",
+    "page": 2,
+    "prev_page": 1,
+    "next_page": 3
+  },
+  "message": "Success Get Page",
+  "success": true
+}
+```
+
+---
+
+## Add Page || POST  
+`{host}/api/auth/book/page/add`
+
+```json
+{
+  "text": "kisah ini berlanjut...",
+  "book_id": 12
+}
+```
+
+---
+
+## Update Page || PATCH  
+`{host}/api/auth/book/page/update`
+
+```json
+{
+  "page": 1,
+  "text": "kisah ini berlanjut...",
+  "book_id": 12
+}
+```
+
+---
+
+## 🛡️ License
+
+MIT License © 2025 — Built with ❤️ using Laravel 12 + JWT
