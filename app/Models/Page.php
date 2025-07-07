@@ -19,4 +19,6 @@ class Page extends Model
         "text" => "string", 
         "book_id" => "integer"
     ];
+
+    public $timestamps = false;
 }

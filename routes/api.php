@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,8 @@ Route::middleware(["auth"])->group(function(){
     Route::post("/auth/book/categories/add", [BookController::class, "addBookcategory"]);
     Route::post("/auth/book/categories/update", [BookController::class, "updateBookcategory"]);
 
+
+    Route::get("/auth/book/page/{book_id}/{page}", [PageController::class, "getPage"]);
+    Route::post("/auth/book/page/add", [PageController::class, "addPage"]);
+    Route::patch("/auth/book/page/update", [PageController::class, "updatePage"]);
 });
